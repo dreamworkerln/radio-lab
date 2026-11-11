@@ -128,7 +128,18 @@ export default function QpskLab() {
     <section id="qpsk" className="lab" aria-label="Интерактивная симуляция QPSK">
       <div className="lab-topbar">
         <div><span className="live-dot" /> КОМПЛЕКСНАЯ ОГИБАЮЩАЯ <span className="topbar-muted">· QPSK</span></div>
-        <button className="play-button" onClick={() => setPlaying(p => !p)} aria-label={playing ? 'Пауза' : 'Воспроизвести'} title={playing ? 'Пауза' : 'Воспроизвести'}>{playing ? 'Ⅱ' : '▶'}</button>
+        <button
+          type="button"
+          className={`autoplay-button${playing ? ' is-playing' : ''}`}
+          onClick={() => setPlaying(previous => !previous)}
+          aria-pressed={playing}
+          aria-label={playing ? 'Остановить автовоспроизведение' : 'Запустить автовоспроизведение'}
+          title={playing ? 'Остановить на текущем кадре' : 'Запустить непрерывное воспроизведение по кругу'}
+        >
+          <span className="autoplay-icon" aria-hidden="true">{playing ? 'Ⅱ' : '▶'}</span>
+          <span>{playing ? 'Остановить' : 'Autoplay'}</span>
+          <span className="autoplay-repeat" aria-hidden="true">↻</span>
+        </button>
       </div>
       <div className="visuals">
         <Constellation value={current} trace={trace} time={time} mode={mode} />
